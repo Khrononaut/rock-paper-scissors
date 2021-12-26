@@ -1,0 +1,16 @@
+.battleground-ctr {
+    width: 100%;
+    height: 300px;
+    padding: 3em;
+    border: .5em solid var(--clr-1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(155, 114, 170, .5);
+}
+
+.chosen-token {
+    width: 30%;
+    height: 40%;
+    border: .5em solid black;
+}
