@@ -1,0 +1,124 @@
+.token-ctr {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 5vh;
+}
+
+.token-btn {
+    width: 30%;
+    padding: 1em;
+    background-color: var(--clr-2);
+    color: var(--clr-1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: var(--clr-1) solid .5em;
+    cursor: pointer;
+    position: relative;
+    border-radius: 1em;
+    transition: all .5s;
+    box-shadow:
+        0px 1.2px 1.7px rgba(0, 0, 0, 0.055),
+        0px 2.6px 3.7px rgba(0, 0, 0, 0.081),
+        0px 4.3px 6.2px rgba(0, 0, 0, 0.099),
+        0px 6.5px 9.3px rgba(0, 0, 0, 0.115),
+        0px 9.4px 13.4px rgba(0, 0, 0, 0.13),
+        0px 13.3px 19px rgba(0, 0, 0, 0.145),
+        0px 18.8px 26.9px rgba(0, 0, 0, 0.161),
+        0px 27.4px 39.1px rgba(0, 0, 0, 0.179),
+        0px 42.2px 60.2px rgba(0, 0, 0, 0.205),
+        0px 75px 107px rgba(0, 0, 0, 0.26);
+}
+
+.token-btn:hover {
+    filter: saturate(2);
+}
+
+.token-btn:active {
+    box-shadow:
+        0px 0.4px 0.7px rgba(0, 0, 0, 0.086),
+        0px 0.8px 1.5px rgba(0, 0, 0, 0.127),
+        0px 1.3px 2.5px rgba(0, 0, 0, 0.157),
+        0px 2px 3.8px rgba(0, 0, 0, 0.182),
+        0px 2.9px 5.5px rgba(0, 0, 0, 0.205),
+        0px 4.1px 7.8px rgba(0, 0, 0, 0.228),
+        0px 5.8px 11.1px rgba(0, 0, 0, 0.253),
+        0px 8.4px 16.1px rgba(0, 0, 0, 0.283),
+        0px 12.9px 24.8px rgba(0, 0, 0, 0.324),
+        0px 23px 44px rgba(0, 0, 0, 0.41);
+    transform: translateY(.5em) scale(0.95, 0.95);
+}
+    /* Setting an inner shadow for the SVGs */
+    .token-btn .fa-solid {
+        background-color: black;
+        color: transparent;
+        text-shadow: 0px 2px 3px var(--clr-1);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        background-clip: text;
+    }
+
+.tooltip {
+    position: relative;
+}
+
+/* Creating the tooltip itself */
+.tooltip:before, .tooltip:after {
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+/* Creating the triangle part of the tooltip */
+.tooltip:after {
+    border-right: 2em solid transparent;
+    border-top: 2em solid rgba(0, 0, 0, 1); 
+    border-left: 2em solid transparent;
+    content: '';
+    height: 0;
+    bottom: 120%;
+    width: 0;
+    z-index: -1;
+}
+
+/* Creating the box containing the tooltip's text */
+.tooltip:before {
+    background: rgba(0, 0, 0, 1);
+    border-radius: .25em;
+    color: #fff;
+    content: attr(data-title);
+    font-size: 2em;
+    text-transform: uppercase;
+    padding: .5em 1em;
+    bottom: 140%;
+    white-space: nowrap;
+}
+
+/* Tooltip's animations */
+.tooltip:after {
+    transform: translate(0,6px);
+    transition: all .1s ease-in-out;
+}
+
+.tooltip:before {
+    transform: scale(.2,.2);
+    transition: all .2s ease-in-out;
+}
+
+.tooltip:hover:before, .tooltip:hover:after {
+    opacity: 1;
+    transform: scale(1,1);
+}
+
+.tooltip:hover:after {
+    transition: all .2s .1s ease-in-out;
+}
+
+.token-selection-text {
+    font-size: 3em;
+    text-align: center;
+}
+

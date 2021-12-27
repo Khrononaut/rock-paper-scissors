@@ -1,5 +1,6 @@
-@import url(top.css);
+@import url(token-selection.css);
 @import url(center.css);
+@import url(bottom.css);
 
 :root {
     --clr-1: #3C5186;
@@ -25,5 +26,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    background-color: var(--clr-3);
 }
