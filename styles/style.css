@@ -1,5 +1,5 @@
 @import url(token-selection.css);
-@import url(center.css);
+@import url(battleground.css);
 @import url(bottom.css);
 
 :root {
@@ -7,6 +7,10 @@
     --clr-2: #9B72AA;
     --clr-3: #C6B4CE;
     --clr-4: #FFF5DE;
+    --clr-user-1: #E09D31;
+    --clr-user-2: #945C03;
+    --clr-comp-1: #52AEFF;
+    --clr-comp-2: #125794;
 }
 
 * {
