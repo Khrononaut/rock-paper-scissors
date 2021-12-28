@@ -1,99 +1,96 @@
-// chooses a symbol and return it.
+// Storing elements in variables
+const scissorsBtn = document.querySelector("#scissors");
+const rockBtn = document.querySelector("#rock");
+const paperBtn = document.querySelector("#paper");
+const resultPara = document.querySelector("#result-para");
+const roundMarkerSpn = document.querySelector("#round-marker-spn");
+
+// FUNCTIONS
+
+// Chooses a symbol and returns it
 function computerPlay() {
     let list = ["Rock", "Paper", "Scissors"];
     let randomEl = list[Math.floor(Math.random() * list.length)];
     return randomEl;
     }
 
-//play a round. return based on the computer's chosen symbol the result of the round.
-function playRound() {
+// Displays results
+function winExpl(v,l) {
+    return `${v} beats ${l}.`;
+}
+function drawExpl(d) {
+    return `${d} against ${d} results in a draw.`;
+}
+function winMessage(v,l) {
+    resultPara.innerText = "You've won this round!" + " " + winExpl(v,l);
+}
+function defMessage(v,l) {
+    resultPara.innerText = "You've lost the round!" + " " + winExpl(v,l);
+}
+function drawMessage(d) {
+    resultPara.innerText = "Draw for this round!" + " " + drawExpl(d);
+}
 
-    function winExpl(v,l) {
-        return `${v} beats ${l}.`;
-    }
-    function drawExpl(d) {
-        return `${d} against ${d} results in a draw.`;
-    }
-    function winMessage(v,l) {
-        console.log("You've won this round!" + " " + winExpl(v,l));
-    }
-    function defMessage(v,l) {
-        console.log("You've lost the round!" + " " + winExpl(v,l));
-    }
-    function drawMessage(d) {
-        console.log("Draw for this round!" + " " + drawExpl(d));
-    }
+// Counter variables
+let playerCounter = 0;
+let compCounter = 0;
+let roundsPlayed = 0;
 
-    let rock = "ROCK";
-    let paper = "PAPER";
-    let scissors = "SCISSORS";
-
-    let win = "Victory";
-    let loss = "Defeat";
-
-    let regExList = [/[rock]/gi, /[paper]/gi, /[scissors]/gi];
+// Plays a round and returns based on the computer's chosen symbol the bout's result
+function playRound(e) {
+    console.log(e.target.id);
+    let regExList = [/rock/gi, /paper/gi, /scissors/gi];
     let computerSelection = computerPlay();
-
-    let input = window.prompt("Choose a symbol for this round.", "Rock, paper or scissors");
-
-    if (regExList[0].test(input)) {
-        if (computerSelection === "Scissors") {
-            winMessage(rock, scissors);
-            return win;
-        } else if (computerSelection === "Paper") {
-            defMessage(paper, rock);
-            return loss;
-        } else {
-            drawMessage(rock);
+    if (compCounter !== 3 && playerCounter !== 3) {
+        if (regExList[0].test(e.target.id)) {
+            if (computerSelection === "Scissors") {
+                winMessage("ROCK", "SCISSORS");
+                playerCounter++;
+            } else if (computerSelection === "Paper") {
+                defMessage("PAPER", "ROCK");
+                compCounter++;
+            } else {
+                drawMessage("ROCK");
+            }
+        } else if (regExList[1].test(e.target.id)) {
+            if (computerSelection === "Scissors") {
+                defMessage("SCISSORS", "PAPER");
+                compCounter++;
+            } else if (computerSelection === "Rock") {
+                winMessage("PAPER", "ROCK");
+                playerCounter++;
+            } else {
+                drawMessage("PAPER");
+            }
+        } else if (regExList[2].test(e.target.id)) {
+            if (computerSelection === "Paper") {
+                winMessage("SCISSORS", "PAPER");
+                playerCounter++;
+            } else if (computerSelection === "Rock") {
+                defMessage("ROCK", "SCISSORS");
+                compCounter++;
+            } else {
+                drawMessage("SCISSORS");
+            }
         }
-    } else if (regExList[1].test(input)) {
-        if (computerSelection === "Scissors") {
-            defMessage(scissors, paper);
-            return loss; 
-        } else if (computerSelection === "Rock") {
-            winMessage(paper, rock);
-            return win;
-        } else {
-            drawMessage(paper);
-        }
-    } else if (regExList[2].test(input)) {
-        if (computerSelection === "Paper") {
-            winMessage(paper, rock);
-            return win; 
-        } else if (computerSelection === "Rock") {
-            defMessage(rock, scissors);
-            return loss;
-        } else {
-            drawMessage(scissors);
-        }
-    }
-}
-
-function playGame() {
-    let playerCounter = 0;
-    let compCounter = 0;
-    let i = 1;
-
-    while (compCounter !== 3 && playerCounter !== 3) {
-        roundResult = playRound();
-        if (roundResult === "Victory") {
-            playerCounter += 1;
-        } else if (roundResult === "Defeat") {
-            compCounter += 1;
-        }
-        console.log(playerCounter);
-        console.log(compCounter);
-        console.log(`${i}. round has been played.`);
-        i++;
-    }
-
-    if (playerCounter === 3) {
-        alert("Congratulations! You've won the game.");
-        location.reload();
+        roundsPlayed++;
+        roundMarkerSpn.innerText = roundsPlayed;
     } else {
-        alert("I'm sorry! You've lost the game.");
-        location.reload();
+        if (compCounter === 3) {
+            resultPara.innerText = "You've lost the game."
+            playerCounter = 0;
+            compCounter = 0;
+        } else {
+            resultPara.innerText = "You've won the game."
+            playerCounter = 0;
+            compCounter = 0;
+        }
     }
-}
 
-playGame();
+}
+// Assigning event handlers
+
+scissorsBtn.addEventListener("click", playRound);
+rockBtn.addEventListener("click", playRound);
+paperBtn.addEventListener("click", playRound);
+

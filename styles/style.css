@@ -1,0 +1,36 @@
+@import url(token-selection.css);
+@import url(battleground.css);
+@import url(counter.css);
+
+:root {
+    --clr-1: #3C5186;
+    --clr-2: #9B72AA;
+    --clr-3: #C6B4CE;
+    --clr-4: #FFF5DE;
+    --clr-5: #e6e3df;
+    --clr-user-1: #E09D31;
+    --clr-user-2: #945C03;
+    --clr-comp-1: #52AEFF;
+    --clr-comp-2: #125794;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 8px;
+}
+
+body {
+    padding: 2em;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--clr-3);
+}
