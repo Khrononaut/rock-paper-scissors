@@ -6,9 +6,21 @@
         <link href="./styles/style.css" rel="stylesheet">
     </head>
     <body>
-        <div>
-            <p>Rounds you've played so far: <span id="round-marker-spn">0</span></p>
-            <p id="result-para"></p>
+        <div class="top">
+            <p class="info">
+                <i class="fa-solid fa-lg fa-circle-info"></i>
+                <span class="info-text">
+                    To win the game, a player has to <strong>win 3 rounds</strong>.
+                </span>
+                <i class="fa-solid fa-lg fa-circle-info"></i>
+            </p>
+            <div class="counter">
+                <div class="separator">
+                    <div class="line-top"></div>
+                    <p class="winning-bar">3</p>
+                    <div class="line-bottom"></div>
+                </div>
+            </div>
         </div>
         <div class="battleground-ctr">
             <div class="player-ctr">
