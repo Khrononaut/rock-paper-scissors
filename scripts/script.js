@@ -2,86 +2,161 @@
 const scissorsBtn = document.querySelector("#scissors");
 const rockBtn = document.querySelector("#rock");
 const paperBtn = document.querySelector("#paper");
-const resultPara = document.querySelector("#result-para");
-const roundMarkerSpn = document.querySelector("#round-marker-spn");
-
-// FUNCTIONS
-
-// Chooses a symbol and returns it
-function computerPlay() {
-    let list = ["Rock", "Paper", "Scissors"];
-    let randomEl = list[Math.floor(Math.random() * list.length)];
-    return randomEl;
-    }
-
-// Displays results
-function winExpl(v,l) {
-    return `${v} beats ${l}.`;
-}
-function drawExpl(d) {
-    return `${d} against ${d} results in a draw.`;
-}
-function winMessage(v,l) {
-    resultPara.innerText = "You've won this round!" + " " + winExpl(v,l);
-}
-function defMessage(v,l) {
-    resultPara.innerText = "You've lost the round!" + " " + winExpl(v,l);
-}
-function drawMessage(d) {
-    resultPara.innerText = "Draw for this round!" + " " + drawExpl(d);
-}
+const userTkn = document.querySelector(".user-token");
+const compTkn = document.querySelector(".comp-token");
+const userTag = document.querySelector(".user-tag");
+const compTag = document.querySelector(".comp-tag");
 
 // Counter variables
 let playerCounter = 0;
 let compCounter = 0;
-let roundsPlayed = 0;
+
+// HTML elements
+class FontAwesomeElement {
+    constructor(specialClass) {
+        this.classStandard = "fa-regular";
+        this.classSize = "fa-9x";
+        this.specialClass = specialClass;
+    }
+
+    setEl() {
+        const iEl = document.createElement("i");
+        iEl.classList.add(`${this.classStandard}`, `${this.classSize}`, `${this.specialClass}`);
+        return iEl;
+    }
+}
+const faRock = new FontAwesomeElement("fa-hand-back-fist");
+const faPaper = new FontAwesomeElement("fa-hand");
+const faScissors = new FontAwesomeElement("fa-hand-scissors");
+
+class FontAwesomeNumber extends FontAwesomeElement {
+    constructor(specialClass) {
+        super();
+        this.classStandard = "fa-solid";
+        this.classSize = "fa-5x";
+        this.specialClass = specialClass;
+    }
+}
+
+const faThree = new FontAwesomeNumber("fa-3");
+const faTwo = new FontAwesomeNumber("fa-2");
+const faOne = new FontAwesomeNumber("fa-1");
+
+function toggleClasses() {
+    userTkn.classList.toggle("winner");
+    userTag.classList.toggle("winner");
+    compTkn.classList.toggle("loser");
+    compTag.classList.toggle("loser");
+}
+
+function removeClasses() {
+    userTkn.classList.remove("winner");
+    userTag.classList.remove("winner");
+    compTkn.classList.remove("loser");
+    compTag.classList.remove("loser");
+}
+
+// Misc
+let roundCanStart = true; // Preliminary round "lock"
+let regExList = [/rock/gi, /paper/gi, /scissors/gi];
+function computerSelects() { // Comp's algorithm for choosing a random token
+    let list = ["Rock", "Paper", "Scissors"];
+    return list[Math.floor(Math.random() * list.length)];
+}
 
 // Plays a round and returns based on the computer's chosen symbol the bout's result
 function playRound(e) {
-    console.log(e.target.id);
-    let regExList = [/rock/gi, /paper/gi, /scissors/gi];
-    let computerSelection = computerPlay();
-    if (compCounter !== 3 && playerCounter !== 3) {
+    if (compCounter !== 3 && playerCounter !== 3 && roundCanStart) {
+        let computerSelection = computerSelects();
+        roundCanStart = false; // Prevents input during the current round till its end
+        userTkn.innerHTML = "";
+        compTkn.innerHTML = "";
+        // User has chosen ROCK
         if (regExList[0].test(e.target.id)) {
-            if (computerSelection === "Scissors") {
-                winMessage("ROCK", "SCISSORS");
-                playerCounter++;
-            } else if (computerSelection === "Paper") {
-                defMessage("PAPER", "ROCK");
-                compCounter++;
-            } else {
-                drawMessage("ROCK");
-            }
+            userTkn.appendChild(faRock.setEl());
+            setTimeout(() => {
+                compTkn.removeChild(compTkn.firstChild);
+                if (computerSelection === "Scissors") {
+                    compTkn.appendChild(faScissors.setEl());
+                    playerCounter++;
+                } else if (computerSelection === "Paper") {
+                    compTkn.appendChild(faPaper.setEl());
+                    compCounter++;
+                } else {
+                    compTkn.appendChild(faRock.setEl());
+                }
+                roundCanStart = true;
+                console.log("roundCanStart:");
+                console.log(roundCanStart);
+            }, 3000);
+            compTkn.appendChild(faThree.setEl())
+            setTimeout(() => {
+                compTkn.removeChild(compTkn.firstChild);
+                compTkn.appendChild(faTwo.setEl());
+            }, 1000);
+            setTimeout(() => {
+                compTkn.removeChild(compTkn.firstChild);
+                compTkn.appendChild(faOne.setEl());
+            }, 2000);
+        // User has chosen PAPER
         } else if (regExList[1].test(e.target.id)) {
-            if (computerSelection === "Scissors") {
-                defMessage("SCISSORS", "PAPER");
-                compCounter++;
-            } else if (computerSelection === "Rock") {
-                winMessage("PAPER", "ROCK");
-                playerCounter++;
-            } else {
-                drawMessage("PAPER");
-            }
+            userTkn.appendChild(faPaper.setEl());
+            if (!userTkn.hasChildNodes()) userTkn.appendChild(faPaper.setEl());
+            setTimeout(() => {
+                compTkn.removeChild(compTkn.firstChild);
+                if (computerSelection === "Scissors") {
+                    compTkn.appendChild(faScissors.setEl());
+                    compCounter++;
+                } else if (computerSelection === "Rock") {
+                    compTkn.appendChild(faRock.setEl());
+                    playerCounter++;
+                } else {
+                    compTkn.appendChild(faPaper.setEl());
+                }
+                roundCanStart = true;
+            }, 3000);
+            compTkn.appendChild(faThree.setEl())
+            setTimeout(() => {
+                compTkn.removeChild(compTkn.firstChild);
+                compTkn.appendChild(faTwo.setEl());
+            }, 1000);
+            setTimeout(() => {
+                compTkn.removeChild(compTkn.firstChild);
+                compTkn.appendChild(faOne.setEl());
+            }, 2000);
+        // User has chosen SCISSORS
         } else if (regExList[2].test(e.target.id)) {
-            if (computerSelection === "Paper") {
-                winMessage("SCISSORS", "PAPER");
-                playerCounter++;
-            } else if (computerSelection === "Rock") {
-                defMessage("ROCK", "SCISSORS");
-                compCounter++;
-            } else {
-                drawMessage("SCISSORS");
-            }
+            userTkn.appendChild(faScissors.setEl());
+            setTimeout(() => {
+                compTkn.removeChild(compTkn.firstChild);
+                if (computerSelection === "Paper") {
+                    compTkn.appendChild(faPaper.setEl());
+                    playerCounter++;
+                } else if (computerSelection === "Rock") {
+                    compTkn.appendChild(faRock.setEl());
+                    compCounter++;
+                } else {
+                    compTkn.appendChild(faScissors.setEl());
+                }
+                roundCanStart = true;
+            }, 3000);
+            compTkn.appendChild(faThree.setEl())
+            setTimeout(() => {
+                compTkn.removeChild(compTkn.firstChild);
+                compTkn.appendChild(faTwo.setEl());
+            }, 1000);
+            setTimeout(() => {
+                compTkn.removeChild(compTkn.firstChild);
+                compTkn.appendChild(faOne.setEl());
+            }, 2000);
         }
-        roundsPlayed++;
-        roundMarkerSpn.innerText = roundsPlayed;
     } else {
         if (compCounter === 3) {
-            resultPara.innerText = "You've lost the game."
+            // losing animation for the user
             playerCounter = 0;
             compCounter = 0;
         } else {
-            resultPara.innerText = "You've won the game."
+            // winning animation for the user
             playerCounter = 0;
             compCounter = 0;
         }
