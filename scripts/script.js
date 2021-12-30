@@ -49,6 +49,13 @@ function toggleClasses() {
     compTag.classList.toggle("loser");
 }
 
+function toggleDraw() {
+    userTkn.classList.toggle("draw");
+    userTag.classList.toggle("draw");
+    compTkn.classList.toggle("draw");
+    compTag.classList.toggle("draw");
+}
+
 function removeClasses() {
     userTkn.classList.remove("winner");
     userTag.classList.remove("winner");
@@ -71,82 +78,90 @@ function playRound(e) {
         roundCanStart = false; // Prevents input during the current round till its end
         userTkn.innerHTML = "";
         compTkn.innerHTML = "";
+        removeClasses();
         // User has chosen ROCK
-        if (regExList[0].test(e.target.id)) {
+        if (e.target.dataset.title.match(regExList[0])) {
             userTkn.appendChild(faRock.setEl());
             setTimeout(() => {
-                compTkn.removeChild(compTkn.firstChild);
+                compTkn.innerHTML = "";
                 if (computerSelection === "Scissors") {
                     compTkn.appendChild(faScissors.setEl());
+                    toggleClasses();
                     playerCounter++;
                 } else if (computerSelection === "Paper") {
                     compTkn.appendChild(faPaper.setEl());
                     compCounter++;
+                    toggleClasses();
                 } else {
                     compTkn.appendChild(faRock.setEl());
+                    toggleDraw();
                 }
                 roundCanStart = true;
-                console.log("roundCanStart:");
-                console.log(roundCanStart);
             }, 3000);
             compTkn.appendChild(faThree.setEl())
             setTimeout(() => {
-                compTkn.removeChild(compTkn.firstChild);
+                compTkn.innerHTML = "";
                 compTkn.appendChild(faTwo.setEl());
             }, 1000);
             setTimeout(() => {
-                compTkn.removeChild(compTkn.firstChild);
+                compTkn.innerHTML = "";
                 compTkn.appendChild(faOne.setEl());
             }, 2000);
         // User has chosen PAPER
-        } else if (regExList[1].test(e.target.id)) {
+        } else if (e.target.dataset.title.match(regExList[1])) {
             userTkn.appendChild(faPaper.setEl());
             if (!userTkn.hasChildNodes()) userTkn.appendChild(faPaper.setEl());
             setTimeout(() => {
-                compTkn.removeChild(compTkn.firstChild);
+                compTkn.innerHTML = "";
                 if (computerSelection === "Scissors") {
                     compTkn.appendChild(faScissors.setEl());
                     compCounter++;
+                    toggleClasses();
                 } else if (computerSelection === "Rock") {
                     compTkn.appendChild(faRock.setEl());
                     playerCounter++;
+                    toggleClasses();
                 } else {
                     compTkn.appendChild(faPaper.setEl());
+                    toggleDraw();
                 }
                 roundCanStart = true;
             }, 3000);
             compTkn.appendChild(faThree.setEl())
             setTimeout(() => {
-                compTkn.removeChild(compTkn.firstChild);
+                compTkn.innerHTML = "";
                 compTkn.appendChild(faTwo.setEl());
             }, 1000);
             setTimeout(() => {
-                compTkn.removeChild(compTkn.firstChild);
+                compTkn.innerHTML = "";
                 compTkn.appendChild(faOne.setEl());
             }, 2000);
         // User has chosen SCISSORS
-        } else if (regExList[2].test(e.target.id)) {
+        } else if (e.target.dataset.title.match(regExList[2])) {
             userTkn.appendChild(faScissors.setEl());
             setTimeout(() => {
-                compTkn.removeChild(compTkn.firstChild);
+                compTkn.innerHTML = "";
                 if (computerSelection === "Paper") {
                     compTkn.appendChild(faPaper.setEl());
                     playerCounter++;
+                    toggleClasses();
                 } else if (computerSelection === "Rock") {
                     compTkn.appendChild(faRock.setEl());
                     compCounter++;
+                    toggleClasses();
                 } else {
                     compTkn.appendChild(faScissors.setEl());
+                    toggleDraw();
                 }
                 roundCanStart = true;
             }, 3000);
             compTkn.appendChild(faThree.setEl())
             setTimeout(() => {
-                compTkn.removeChild(compTkn.firstChild);
+                compTkn.innerHTML = "";
                 compTkn.appendChild(faTwo.setEl());
             }, 1000);
             setTimeout(() => {
-                compTkn.removeChild(compTkn.firstChild);
+                compTkn.innerHTML = "";
                 compTkn.appendChild(faOne.setEl());
             }, 2000);
         }
@@ -160,6 +175,7 @@ function playRound(e) {
             playerCounter = 0;
             compCounter = 0;
         }
+        roundCanStart = true;
     }
 
 }
