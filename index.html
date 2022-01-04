@@ -1,50 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="./styles/style.css" rel="stylesheet">
-    </head>
-    <body>
-        <div class="top">
-            <p class="info">
-                <i class="fa-solid fa-lg fa-circle-info"></i>
-                <span class="info-text">
-                    To win the game, a player has to <strong>win 3 rounds</strong>.
-                </span>
-                <i class="fa-solid fa-lg fa-circle-info"></i>
-            </p>
-            <div class="counter">
-                <div class="separator">
-                    <div class="line-top"></div>
-                    <p class="winning-bar">3</p>
-                    <div class="line-bottom"></div>
-                </div>
-            </div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="./styles/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="top">
+      <p class="info">
+        <i class="fa-solid fa-lg fa-circle-info"></i>
+        <span class="info-text">
+          To win the game, a player has to <strong>win 3 rounds</strong>.
+        </span>
+        <i class="fa-solid fa-lg fa-circle-info"></i>
+      </p>
+      <div id="counter" class="counter counter00">
+        <div class="separator">
+          <div class="line-top"></div>
+          <p class="winning-bar">3</p>
+          <div class="line-bottom"></div>
         </div>
-        <div class="battleground-ctr">
-            <div class="player-ctr">
-                <p class="player-tag user-tag">you</p>
-                <div class="chosen-token user-token"></div>
-            </div>
-            <div class="player-ctr">
-                <p class="player-tag comp-tag">computer</p>
-                <div class="chosen-token comp-token"></div>
-            </div>
-        </div>
-        <div class="token-ctr">
-            <button id="rock" class="token-btn tooltip" data-title="rock">
-                <i class="fa-solid fa-4x fa-hand-back-fist" data-title="rock"></i>
-            </button>
-            <button id="paper" class="token-btn tooltip" data-title="paper">
-                <i class="fa-solid fa-4x fa-hand" data-title="paper"></i>
-            </button>
-            <button id="scissors" class="token-btn tooltip" data-title="scissors">
-                <i class="fa-solid fa-4x fa-hand-scissors" data-title="scissors"></i>
-            </button>
-        </div>
+      </div>
+    </div>
+    <div class="battleground-ctr">
+      <div class="player-ctr">
+        <p class="player-tag user-tag">you</p>
+        <div class="chosen-token user-token"></div>
+      </div>
+      <div class="player-ctr">
+        <p class="player-tag comp-tag">computer</p>
+        <div class="chosen-token comp-token"></div>
+      </div>
+    </div>
+    <div class="token-ctr">
+      <button id="rock" class="token-btn tooltip" data-title="rock">
+        <i class="fa-solid fa-4x fa-hand-back-fist" data-title="rock"></i>
+      </button>
+      <button id="paper" class="token-btn tooltip" data-title="paper">
+        <i class="fa-solid fa-4x fa-hand" data-title="paper"></i>
+      </button>
+      <button id="scissors" class="token-btn tooltip" data-title="scissors">
+        <i class="fa-solid fa-4x fa-hand-scissors" data-title="scissors"></i>
+      </button>
+    </div>
 
-        <script src="https://kit.fontawesome.com/2277de3183.js" crossorigin="anonymous"></script>
-        <script src="scripts/script.js"></script>
-    </body>
+    <script
+      src="https://kit.fontawesome.com/2277de3183.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="scripts/script.js"></script>
+  </body>
 </html>
